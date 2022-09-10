@@ -42,11 +42,11 @@ func esLlaveApiValida(llaveApi string) bool {
 	return true
 }
 
-// conseguirDatosClimaPorIdCiudad consigue los datos del clima
-// de una ciudad por su id.
-func (cliente *ClienteClima) conseguirDatosClimaPorIdCiudad(idCiudad int) (string, error) {
+// conseguirDatosClimaPorLatYLong consigue los datos del clima por latitud
+// y longitud.
+func (cliente *ClienteClima) conseguirDatosClimaPorLatYLong(lat, long float64) (string, error) {
 	// Url para realizar peticiones.
-	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?id=%d&appid=%s", idCiudad, cliente.llaveApi)
+	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&appid=%s&units=metric&lang=es", lat, long, cliente.llaveApi)
 	// Se obtiene respuesta de petición get en la url
 	resp, err := cliente.http.Get(url)
 	if err != nil {

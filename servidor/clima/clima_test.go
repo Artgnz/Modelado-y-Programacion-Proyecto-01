@@ -59,15 +59,16 @@ func TestEsLlaveApiValida(t *testing.T) {
 
 // TestConseguirDatosClimaPorIdCiudad prueba si la función conseguirDatosClimaPorIdCIudad
 // consigue correctamente los datos.
-func TestConseguirDatosClimaPorIdCiudad(t *testing.T) {
+func TestConseguirDatosClimaPorLatYLong(t *testing.T) {
 	// Llave con la que se realizarán las peticiones.
 	llaveApi := obtenerLlaveApi(t)
-	idDePrueba := 2172797
+	lat := 19.3371
+	long := -99.566
 	cliente, error := NuevoClienteClima(&http.Client{}, llaveApi)
 	if error != nil {
 		t.Errorf("Error al crear cliente.")
 	}
-	datos, error := cliente.conseguirDatosClimaPorIdCiudad(idDePrueba)
+	datos, error := cliente.conseguirDatosClimaPorLatYLong(lat, long)
 	if error != nil {
 		t.Errorf("Se esperaba nil, se obtuvo %v", error)
 	}
