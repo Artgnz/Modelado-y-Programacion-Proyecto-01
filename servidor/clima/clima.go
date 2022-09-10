@@ -2,6 +2,7 @@ package clima
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -33,10 +34,38 @@ func esLlaveApiValida(llaveApi string) bool {
 		log.Println("Error:", err)
 		return false
 	}
-	// Si la el código de estatus de la respuesta no es OK.
+	// Si el código de estatus de la respuesta no es OK.
 	if resp.StatusCode != http.StatusOK {
 		log.Println("Error:", err)
 		return false
 	}
 	return true
+}
+
+// conseguirDatosClimaPorIdCiudad consigue los datos del clima
+// de una ciudad por su id.
+func (cliente *ClienteClima) conseguirDatosClimaPorIdCiudad(idCiudad int) (string, error) {
+	// Url para realizar peticiones.
+	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?id=%d&appid=%s", idCiudad, cliente.llaveApi)
+	// Se obtiene respuesta de petición get en la url
+	resp, err := cliente.http.Get(url)
+	if err != nil {
+		return "", err
+	}
+
+	// Para cerrar al cuerpo de la petición al final de la función.
+	defer resp.Body.Close()
+
+	// Se lee el cuerpo de la petición.
+	cuerpo, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	// Si el código de estatus de la respuesta no es OK
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf(string(cuerpo))
+	}
+	return string(cuerpo), nil
+
 }

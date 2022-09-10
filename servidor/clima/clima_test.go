@@ -15,14 +15,7 @@ import (
 // esté definida en el archivo .env en la ráiz del proyecto y que la
 // llave sea válida.
 func TestNuevoClienteClima(t *testing.T) {
-	// Se lee archivo .env
-	err := godotenv.Load("../../.env")
-
-	if err != nil {
-		t.Errorf("Error al leer archivo .env.")
-	}
-
-	llaveApi := os.Getenv("LLAVE_API")
+	llaveApi := obtenerLlaveApi(t)
 
 	if llaveApi == "" {
 		t.Errorf("LLAVE_API no definida en archivo .env,")
@@ -43,18 +36,7 @@ func TestNuevoClienteClima(t *testing.T) {
 // esté definida en el archivo .env en la ráiz del proyecto y que la
 // llave sea válida.
 func TestEsLlaveApiValida(t *testing.T) {
-	// Se lee archivo .env
-	err := godotenv.Load("../../.env")
-	if err != nil {
-		t.Errorf("Error al leer archivo .env.")
-	}
-
-	llaveApi := os.Getenv("LLAVE_API")
-
-	if llaveApi == "" {
-		t.Errorf("LLAVE_API no definida en archivo .env,")
-	}
-
+	llaveApi := obtenerLlaveApi(t)
 	// Tabla para realizar pruebas.
 	var pruebas = []struct {
 		llave    string
@@ -73,4 +55,40 @@ func TestEsLlaveApiValida(t *testing.T) {
 			}
 		})
 	}
+}
+
+// TestConseguirDatosClimaPorIdCiudad prueba si la función conseguirDatosClimaPorIdCIudad
+// consigue correctamente los datos.
+func TestConseguirDatosClimaPorIdCiudad(t *testing.T) {
+	// Llave con la que se realizarán las peticiones.
+	llaveApi := obtenerLlaveApi(t)
+	idDePrueba := 2172797
+	cliente, error := NuevoClienteClima(&http.Client{}, llaveApi)
+	if error != nil {
+		t.Errorf("Error al crear cliente.")
+	}
+	datos, error := cliente.conseguirDatosClimaPorIdCiudad(idDePrueba)
+	if error != nil {
+		t.Errorf("Se esperaba nil, se obtuvo %v", error)
+	}
+	if datos == "" {
+		t.Errorf("Se obtuvo datos vacíos.")
+	}
+}
+
+// Función auxiliar de las pruebas que obtiene la variable LLAVE_API de archivo .env.
+// Recibe t, para mostrar errores en la prueba t si no es posible obtener LLAVE_API.
+func obtenerLlaveApi(t *testing.T) string {
+	// Se lee archivo .env
+	err := godotenv.Load("../../.env")
+	if err != nil {
+		t.Errorf("Error al leer archivo .env.")
+		return ""
+	}
+	llaveApi := os.Getenv("LLAVE_API")
+	if llaveApi == "" {
+		t.Errorf("LLAVE_API no definida en archivo .env,")
+		return ""
+	}
+	return llaveApi
 }
