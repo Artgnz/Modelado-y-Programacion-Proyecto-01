@@ -44,7 +44,7 @@ func esLlaveApiValida(llaveApi string) bool {
 
 // conseguirDatosClimaPorLatYLong consigue los datos del clima por latitud
 // y longitud.
-func (cliente *ClienteClima) conseguirDatosClimaPorLatYLong(lat, long float64) (string, error) {
+func (cliente *ClienteClima) ConseguirDatosClimaPorLatYLong(lat, long float64) (string, error) {
 	// Url para realizar peticiones.
 	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&appid=%s&units=metric&lang=es", lat, long, cliente.llaveApi)
 	// Se obtiene respuesta de petición get en la url

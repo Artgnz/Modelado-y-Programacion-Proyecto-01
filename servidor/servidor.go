@@ -2,11 +2,46 @@ package servidor
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+	"strconv"
 	"text/template"
 
 	"github.com/Artgnz/Modelado-y-Programacion-Proyecto-01/servidor/clima"
 )
+
+// climaHandler procesa peticiones sobre datos del clima en
+// una latitud y longitud dados.
+func climaHandler(cliente *clima.ClienteClima, w http.ResponseWriter, r *http.Request) {
+	// Si el cliente es nil, significa que no ha iniciado sesión.
+	if cliente == nil {
+		http.Redirect(w, r, "/acceso/", http.StatusUnauthorized)
+		return
+	}
+	valoresUrl := r.URL.Query()
+	/// Conesguimos latitud de la url de la petición
+	lat, error := strconv.ParseFloat(valoresUrl.Get("lat"), 64)
+	if error != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprint(w, "Latitud incorrecta.")
+		return
+	}
+	/// Conseguimos longitud de la url de la petición
+	lon, error := strconv.ParseFloat(valoresUrl.Get("lon"), 64)
+	if error != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprint(w, "Longitud incorrecta.")
+		return
+	}
+	// Consguimos datos del clima
+	datos, error := cliente.ConseguirDatosClimaPorLatYLong(lat, lon)
+	if error != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprint(w, error)
+		return
+	}
+	fmt.Fprint(w, datos)
+}
 
 // EjecutarServidor ejecuta el servidor en el puerto 8080.
 func EjecutarServidor() {
@@ -27,6 +62,8 @@ func funcionHandle(cliente *clima.ClienteClima) http.HandlerFunc {
 			cliente = accesoHandler(w, r)
 		case "/tickets/":
 			ticketsHandler(cliente, w, r)
+		case "/clima":
+			climaHandler(cliente, w, r)
 		}
 	}
 }
@@ -34,8 +71,17 @@ func funcionHandle(cliente *clima.ClienteClima) http.HandlerFunc {
 // ticketsHandler procesa peticiones relacionadas con mostrar la tabla de tickets.
 // Recibe cliente para realizar peticións a openweather.
 func ticketsHandler(cliente *clima.ClienteClima, w http.ResponseWriter, r *http.Request) {
+	if cliente == nil {
+		http.Redirect(w, r, "/acceso/", http.StatusUnauthorized)
+		return
+	}
+
+	tickets, error := obtenerTicketsCsv()
+	if error != nil {
+		log.Println("No hay archivo csv con tickets.")
+	}
 	tpl := template.Must(template.ParseFiles("assets/templates/tickets.html"))
-	tpl.Execute(w, nil)
+	tpl.Execute(w, tickets)
 }
 
 // accesoHandler procesa peticiones relacionadas con el ingreso de sesión.
