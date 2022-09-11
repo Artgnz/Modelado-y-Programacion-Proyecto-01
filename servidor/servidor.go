@@ -48,6 +48,8 @@ func EjecutarServidor() {
 	puerto := "8080"
 	mux := http.NewServeMux()
 	var cliente *clima.ClienteClima
+	servidorArchivos := http.FileServer(http.Dir("assets"))
+	mux.Handle("/assets/", http.StripPrefix("/assets/", servidorArchivos))
 	mux.HandleFunc("/", funcionHandle(cliente))
 	log.Fatal(http.ListenAndServe("localhost:"+puerto, mux))
 
