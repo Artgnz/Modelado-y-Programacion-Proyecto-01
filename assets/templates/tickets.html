@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Tabla de tickets</title>
+</head>
+
+<body>
+  <table id="tabla">
+    <thead>
+      <tr>
+        <th colspan="4">Tabla de tickets</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Origen</td>
+        <td>Latitud de Origen</td>
+        <td>Longitud de Origen</td>
+        <td>Clima de Origen</td>
+        <td>Destino</td>
+        <td>Latitud de Destino</td>
+        <td>Longitud de Destino</td>
+        <td>Clima de Destino</td>
+      </tr>
+    </tbody>
+    {{range .}}
+    <tr>
+        <td>{{index . 0}}</td>
+        <td>{{index . 2}}</td>
+        <td>{{index . 3}}</td>
+        <td></td>
+        <td>{{index . 1}}</td>
+        <td>{{index . 4}}</td>
+        <td>{{index . 5}}</td>
+        <td></td>
+    </tr>
+    {{end}}
+  </table>
+</body>
+
+</html>
