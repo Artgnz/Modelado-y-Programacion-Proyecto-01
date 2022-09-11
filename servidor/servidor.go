@@ -49,7 +49,7 @@ func EjecutarServidor() {
 	mux := http.NewServeMux()
 	var cliente *clima.ClienteClima
 	mux.HandleFunc("/", funcionHandle(cliente))
-	http.ListenAndServe("localhost:"+puerto, mux)
+	log.Fatal(http.ListenAndServe("localhost:"+puerto, mux))
 
 }
 
