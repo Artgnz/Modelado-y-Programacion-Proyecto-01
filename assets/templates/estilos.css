@@ -1,0 +1,61 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+header, section, footer, aside, nav, article, hgroup{
+    display: block;
+}
+
+h1{
+    font: bold 25px verdana, sans-serif;
+    text-align: center;
+}
+
+h2{
+    font:bold 20px verdana, sans-serif;
+    text-align: center;
+}
+
+body{
+    text-align: center;
+}
+
+#agrupar{
+    width: 960px;
+    margin: 15px auto;
+    text-align: left;
+}
+
+#cabecera{
+    background: #9DE628;
+    border: 1px solid #999999;
+    padding: 20px;
+}
+
+#menu{
+    background: #CCCCCC;
+    padding: 5px 15px;
+}
+
+#seccion{
+    float: left;
+    width: 880px;
+    margin: 20px;
+    padding: 20px;
+    background: #F7F9D6
+}
+
+#pie{
+    clear: both;
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #999999;
+}
+
+article{
+    background: #FFFBCC;
+    border: 1px solid #999999;
+    padding: 20px;
+    margin-bottom: 15px;
+}
