@@ -59,6 +59,8 @@ func EjecutarServidor() {
 // handler para procesar una petición r y construir una respuesta HTTP con w.
 func funcionHandle(cliente *clima.ClienteClima) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		// Soluciona error que impedía hacer requests con javascript.
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		switch r.URL.Path {
 		case "/acceso/":
 			cliente = accesoHandler(w, r)
