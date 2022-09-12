@@ -68,7 +68,7 @@ func TestConseguirDatosClimaPorLatYLong(t *testing.T) {
 	if error != nil {
 		t.Errorf("Error al crear cliente.")
 	}
-	datos, error := cliente.conseguirDatosClimaPorLatYLong(lat, long)
+	datos, error := cliente.ConseguirDatosClimaPorLatYLong(lat, long)
 	if error != nil {
 		t.Errorf("Se esperaba nil, se obtuvo %v", error)
 	}

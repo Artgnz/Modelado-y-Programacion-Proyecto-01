@@ -48,8 +48,10 @@ func EjecutarServidor() {
 	puerto := "8080"
 	mux := http.NewServeMux()
 	var cliente *clima.ClienteClima
+	servidorArchivos := http.FileServer(http.Dir("assets"))
+	mux.Handle("/assets/", http.StripPrefix("/assets/", servidorArchivos))
 	mux.HandleFunc("/", funcionHandle(cliente))
-	http.ListenAndServe("localhost:"+puerto, mux)
+	log.Fatal(http.ListenAndServe("localhost:"+puerto, mux))
 
 }
 
@@ -57,6 +59,8 @@ func EjecutarServidor() {
 // handler para procesar una petición r y construir una respuesta HTTP con w.
 func funcionHandle(cliente *clima.ClienteClima) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		// Soluciona error que impedía hacer requests con javascript.
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		switch r.URL.Path {
 		case "/acceso/":
 			cliente = accesoHandler(w, r)
