@@ -1,44 +1,72 @@
 <!DOCTYPE html>
 <html lang="en-US">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Tabla de tickets</title>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Informe climático AA</title>
+    <link rel="stylesheet" href="/assets/templates/estilos.css">
+  </head>
 
-<body>
-  <table id="tabla">
-    <thead>
-      <tr>
-        <th colspan="4">Tabla de tickets</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Origen</td>
-        <td>Latitud de Origen</td>
-        <td>Longitud de Origen</td>
-        <td>Clima de Origen</td>
-        <td>Destino</td>
-        <td>Latitud de Destino</td>
-        <td>Longitud de Destino</td>
-        <td>Clima de Destino</td>
-      </tr>
-    </tbody>
-    {{range .}}
-    <tr>
-        <td>{{index . 0}}</td>
-        <td>{{index . 2}}</td>
-        <td>{{index . 3}}</td>
-        <td></td>
-        <td>{{index . 1}}</td>
-        <td>{{index . 4}}</td>
-        <td>{{index . 5}}</td>
-        <td></td>
-    </tr>
-    {{end}}
-  </table>
-</body>
+  <body>
 
+    <div id="agrupar">
+
+      <header id="cabecera">
+	<h1>Bienvenido a Informes Cimáticos AA</h1>
+	<h2>Traido a ustedes por : Arturo González Peñaloza y Emilio Arsenio Raudry Rico</h2>
+      </header>
+
+      <nav id="menu">
+      </nav>
+      <section id="seccion">
+
+	<article>
+	  <header>
+	    <h1>He aquí los climas solicitados de acuerdo a los tickets ingresados</h1>
+	  </header>
+	  <table id="tabla">
+	    <thead>
+	      <tr>
+		<th colspan="4">Tabla de tickets</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>Origen</td>
+		<td>Latitud de Origen</td>
+		<td>Longitud de Origen</td>
+		<td>Clima de Origen</td>
+		<td>Destino</td>
+		<td>Latitud de Destino</td>
+		<td>Longitud de Destino</td>
+		<td>Clima de Destino</td>
+	      </tr>
+	    </tbody>
+	    {{range .}}
+
+	    <tr>
+              <td>{{index . 0}}</td>
+              <td>{{index . 2}}</td>
+              <td>{{index . 3}}</td>
+              <td></td>
+              <td>{{index . 1}}</td>
+              <td>{{index . 4}}</td>
+              <td>{{index . 5}}</td>
+              <td></td>
+	    </tr>
+	    {{end}}
+	  </table>
+
+	</article>
+      </section>
+
+      <footer id="pie">
+	<p>Universidad Nacional Autónoma de México</p>
+	<p>Facultad de Ciencias</p>
+	<p>Modelado y Programación 2022</p>
+	  </footer>
+
+    </div>
+  </body>
 </html>
