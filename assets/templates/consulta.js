@@ -18,10 +18,10 @@ async function consulta(lat, lon, fila, origen){
 
     switch(origen){
     case true :
-	document.getElemenstByClassName('clima')[2*fila].textContent=weather;
+	document.getElementsByClassName('clima')[2*(fila-2)].textContent=weather;
 	break;
     case false:
-	document.getElemenstByClassName('clima')[2*fila+1].textContent=weather;
+	document.getElementsByClassName('clima')[2*(fila-2)+1].textContent=weather;
 	break;
     }
 
