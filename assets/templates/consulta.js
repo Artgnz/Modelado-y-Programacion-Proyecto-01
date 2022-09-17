@@ -11,17 +11,17 @@ function mostrarClimas(elemento){
 }
 
 async function consulta(lat, lon, fila, origen){
-    const url = `http://127.0.0.1:8080/clima?lat=${lat}&lon=${lon}`;
+    const url = `http://127.0.0.1:8080/clima?lat=${lat}&lon=${lon}`;//Hacemos la consulta
     const response = await fetch(url);
     const data = await response.json();
-    const weather = data.weather[0].description;
+    const weather = data.weather[0].description;//Seleccionamos la descripcion del clima y lo guardamos en una constante
 
     switch(origen){
     case true :
-	document.getElementsByClassName('clima')[2*(fila-2)].textContent=weather;
+	document.getElementsByClassName('clima')[2*(fila-2)].textContent=weather;//Imprimimos el clima de la ciudad de origen.
 	break;
     case false:
-	document.getElementsByClassName('clima')[2*(fila-2)+1].textContent=weather;
+	document.getElementsByClassName('clima')[2*(fila-2)+1].textContent=weather;//Imprimimos el clima de la ciudad de destino.
 	break;
     }
 
