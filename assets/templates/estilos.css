@@ -3,7 +3,7 @@
     padding: 0px;
 }
 
-header, section, footer, aside, nav, article, hgroup{
+header, section, footer, aside, nav, article, hgroup, table, tgroup, label{
     display: block;
 }
 
@@ -22,13 +22,13 @@ body{
 }
 
 #agrupar{
-    width: 960px;
+    width: 1500px;
     margin: 15px auto;
     text-align: left;
 }
 
 #cabecera{
-    background: #9DE628;
+    background: #9De628bb;
     border: 1px solid #999999;
     padding: 20px;
 }
@@ -40,7 +40,7 @@ body{
 
 #seccion{
     float: left;
-    width: 880px;
+    width: 1450px;
     margin: 20px;
     padding: 20px;
     background: #F7F9D6
@@ -58,4 +58,34 @@ article{
     border: 1px solid #999999;
     padding: 20px;
     margin-bottom: 15px;
+}
+
+table{
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    padding: 4px;
+    margin-bottom: 15px;
+}
+
+
+#fila{
+    background: #86F0AF;
+}
+
+th{
+    background: #2BAD5E;
+    font: bold 25px verdana, sans-serif;
+    text-align: center;
+    padding: 15px;
+}
+
+td{
+    font: 20px verdana, sans-serif;
+    text-align: center;
+    border: 1px solid #000000;
+    padding: 10px;
+}
+
+#boton{
+    font: bold 15px verdana, sans-serif;
 }
