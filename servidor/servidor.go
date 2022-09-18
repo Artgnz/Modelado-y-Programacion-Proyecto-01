@@ -1,3 +1,4 @@
+// Package servidor implementa un simple servidor en el puerto 8080.
 package servidor
 
 import (

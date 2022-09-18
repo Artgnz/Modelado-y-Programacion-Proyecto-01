@@ -1,3 +1,4 @@
+// Package clima implementa una estructura con un cliente http para hacer consultas a la api de OpenWeatherMap
 package clima
 
 import (
